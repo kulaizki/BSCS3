@@ -24,14 +24,17 @@ int* countingSort(int a[], int n) {
 
     int* count = (int *)calloc(max + 1, sizeof(int));
 
+    // count array
     for (int i = 0; i < n; ++i) {
         count[a[i]]++;
     }
 
+    // prefix sum array
     for (int i = 1; i <= max; ++i) {
         count[i] += count[i - 1];
     }
 
+    // sorted array
     int* sorted = (int *)malloc(sizeof(int) * n);
     for (int i = n - 1; i >= 0; --i){
         sorted[count[a[i]] - 1] = a[i];
