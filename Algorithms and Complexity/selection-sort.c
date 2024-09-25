@@ -1,7 +1,5 @@
 #include "util.c"
 
-#define SIZE 8
-
 void selectionSort(int a[], int n);
 
 int main() {
