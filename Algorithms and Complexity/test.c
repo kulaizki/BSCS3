@@ -22,6 +22,5 @@ void sort(int a[], int n) {
                 swapped = 1;
             }
         }
-        if (!swapped) break;
     }
 }

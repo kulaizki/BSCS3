@@ -16,9 +16,9 @@ void insertionSort(int a[], int n) {
     int x, y;
     for (x = 1; x < n; ++x) {
         int key = a[x];
-        for (y = x - 1; y >= 0 && y[a] > key; y--) {
+        for (y = x - 1; y >= 0 && a[y] > key; --y) {
             a[y + 1] = a[y];
         }
-        a[y + 1] = key; 
+        a[y + 1] = key;
     }
 }
