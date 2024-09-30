@@ -4,8 +4,6 @@
 #define SIZE 8
 
 void tournamentSort(int a[], int n);
-void buildTournamentTree(int tree[], int a[], int n);
-void adjustTournamentTree(int tree[], int a[], int n);
 void displayArray(int a[], int n);
 
 int main() {
@@ -18,52 +16,44 @@ int main() {
 }
 
 void tournamentSort(int a[], int n) {
+
     int tournamentTree[2 * n - 1];
+    int x, y;
     
     // Build the tournament tree
-    buildTournamentTree(tournamentTree, a, n);
-    
+    for (x = 0; x < n; x++) {
+        tournamentTree[n - 1 + x] = a[x]; // Initialize leaf nodes with the array elements
+    }
+
+    // Build internal nodes (winners of comparisons)
+    for (x = n - 2; x >= 0; x--) {
+        tournamentTree[x] = (tournamentTree[2 * x + 1] < tournamentTree[2 * x + 2]) ? tournamentTree[2 * x + 1] : tournamentTree[2 * x + 2];
+    }
+
     // Repeatedly extract the winner and adjust the tree
-    for (int i = 0; i < n; i++) {
-        // The root of the tree is the smallest element
-        a[i] = tournamentTree[0];
+    for (x = 0; x < n; x++) {
+        a[x] = tournamentTree[0]; // The root of the tree is the smallest element
         
-        // Replace the root with a "max" value (or INF)
-        for (int j = 0; j < n; j++) {
-            if (tournamentTree[n - 1 + j] == a[i]) {
-                tournamentTree[n - 1 + j] = INT_MAX;  // Mark as removed
+        // Replace the root with INT_MAX to mark the removal
+        for (y = 0; y < n; y++) {
+            if (tournamentTree[n - 1 + y] == a[x]) {
+                tournamentTree[n - 1 + y] = INT_MAX; // Mark as removed
                 break;
             }
         }
         
-        // Adjust the tournament tree to find the next smallest element
-        adjustTournamentTree(tournamentTree, a, n);
-    }
-}
-
-void buildTournamentTree(int tree[], int a[], int n) {
-    // Initialize leaf nodes with the array elements
-    for (int i = 0; i < n; i++) {
-        tree[n - 1 + i] = a[i];
-    }
-    
-    // Build the internal nodes (winners of comparisons)
-    for (int i = n - 2; i >= 0; i--) {
-        tree[i] = (tree[2 * i + 1] < tree[2 * i + 2]) ? tree[2 * i + 1] : tree[2 * i + 2];
-    }
-}
-
-void adjustTournamentTree(int tree[], int a[], int n) {
-    // Adjust the tree starting from the leaf nodes up to the root
-    int idx = 0;
-    for (int i = (n - 2); i >= 0; i--) {
-        tree[i] = (tree[2 * i + 1] < tree[2 * i + 2]) ? tree[2 * i + 1] : tree[2 * i + 2];
+        // Adjust the tree after removal of the current smallest
+        int z;
+        for (z = (n - 2); z >= 0; z--) {
+            tournamentTree[z] = (tournamentTree[2 * z + 1] < tournamentTree[2 * z + 2]) ? tournamentTree[2 * z + 1] : tournamentTree[2 * z + 2];
+        }
     }
 }
 
 void displayArray(int a[], int n) {
-    for (int i = 0; i < n; i++) {
-        printf("%d ", a[i]);
+    int x;
+    for (x = 0; x < n; x++) {
+        printf("%d ", a[x]);
     }
     printf("\n");
 }
