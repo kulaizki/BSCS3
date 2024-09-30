@@ -17,7 +17,7 @@ int main() {
 
 void tournamentSort(int a[], int n) {
 
-    int tree[2 * n - 1]; // Renamed tournamentTree to tree
+    int tree[2 * n - 1]; 
     int x, y;
     
     // Build the tournament tree
