@@ -33,7 +33,7 @@ void heapify(int a[], int n, int x) {
 }
 
 void heapSort(int a[], int n) {
-    int x, y;
+    int x;
     for (x = n / 2 - 1; x >= 0; --x) {
         heapify(a, n, x);
     }
