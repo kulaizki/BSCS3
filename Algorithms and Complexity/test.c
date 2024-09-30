@@ -1,5 +1,6 @@
 #include "util.c"
 
+void heapify(int a[], int n, int x);
 void sort(int a[], int n);
 
 int main() {
@@ -10,24 +11,38 @@ int main() {
     displayArray(a, SIZE);
 }
 
+void heapify(int a[], int n, int x) {
+    int largest = x;
+    int l = 2 * x + 1;
+    int r = 2 * x + 2;
+
+    if (l < n && a[l] > a[largest]) {
+        largest = l;
+    }
+
+    if (l < n && a[r] > a[largest]) {
+        largest = r;
+    }
+
+    if (largest != x) {
+        int temp = a[x];
+        a[x] = a[largest];
+        a[largest] = temp;
+        heapify(a, n, largest);
+    }
+}
+
 void sort(int a[], int n) {
 
-    int gap = n;
-    int swapped = 1;
+    int x;
+    for (x = n / 2 - 1; x >= 0; --x) {
+        heapify(a, n, x);
+    }
 
-    while (gap > 1 || swapped) {
-        gap = (int)(gap / 1.3);
-        if (gap < 1) gap = 1;
-        swapped = 0;
-
-        int x;
-        for (x = 0; x + gap < n; ++x) {
-            if (a[x] > a[x + gap]) {
-                int temp = a[x];
-                a[x] = a[x + gap];
-                a[x + gap] = temp;
-                swapped = 1;
-            }
-        }
+    for (x = n - 1; x > 0; --x) {
+        int temp = a[0];
+        a[0] = a[x];
+        a[x] = temp;
+        heapify(a, x, 0);
     }
 }
