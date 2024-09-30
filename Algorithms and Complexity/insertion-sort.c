@@ -13,6 +13,7 @@ int main() {
 }
 
 void insertionSort(int a[], int n) {
+
     int x, y;
     for (x = 1; x < n; ++x) {
         int key = a[x];
