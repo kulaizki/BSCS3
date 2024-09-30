@@ -12,6 +12,7 @@ int main() {
 }
 
 void heapify(int a[], int n, int x) {
+
     int largest = x;
     int l = 2 * x + 1;
     int r = 2 * x + 2;
@@ -33,6 +34,7 @@ void heapify(int a[], int n, int x) {
 }
 
 void heapSort(int a[], int n) {
+
     int x;
     for (x = n / 2 - 1; x >= 0; --x) {
         heapify(a, n, x);

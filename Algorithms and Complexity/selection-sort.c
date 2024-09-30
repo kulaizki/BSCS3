@@ -11,7 +11,9 @@ int main() {
 }
 
 void selectionSort(int a[], int n) {
+
     int x, y;
+
     for (x = 0; x < n; ++x) {
         int min = x;
         for (y = x + 1; y < n; ++y) {
