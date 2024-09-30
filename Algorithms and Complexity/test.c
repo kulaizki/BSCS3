@@ -12,15 +12,22 @@ int main() {
 
 void sort(int a[], int n) {
 
-    int gap, x, y;
+    int gap = n;
+    int swapped = 1;
 
-    for (gap = n / 2; gap > 0; gap /= 2) {
-        for (x = gap; x < n; ++x) {
-            int key = a[x];
-            for (y = x; y >= gap && a[y - gap] > key; y -= gap) {
-                a[y] = a[y - gap];
+    while (gap > 1 || swapped) {
+        gap = (int)(gap / 1.3);
+        if (gap < 1) gap = 1;
+        swapped = 0;
+
+        int x;
+        for (x = 0; x + gap < n; ++x) {
+            if (a[x] > a[x + gap]) {
+                int temp = a[x];
+                a[x] = a[x + gap];
+                a[x + gap] = temp;
+                swapped = 1;
             }
-            a[y] = key;
         }
     }
 }

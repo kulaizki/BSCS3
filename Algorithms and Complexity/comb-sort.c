@@ -1,7 +1,5 @@
 #include "util.c"
 
-#define SIZE 8
-
 void combSort(int a[], int n);
 
 int main() {
