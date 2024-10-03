@@ -1,49 +1,53 @@
-#include "util.c"
+#include <stdio.h>
+#include <limits.h>  
 
-void heapify(int a[], int n, int x);
-void sort(int a[], int n);
+#define SIZE 8
+
+void tournamentSort(int a[], int n);
+void displayArray(int a[], int n);
 
 int main() {
-
     int a[SIZE] = {4, 1, 2, 3, 9, 9, 0, 3};
-
-    sort(a, SIZE);
+    
+    tournamentSort(a, SIZE);
     displayArray(a, SIZE);
+    
+    return 0;
 }
 
-void heapify(int a[], int n, int x) {
+void tournamentSort(int a[], int n){
 
-    int largest = x;
-    int l = 2 * x + 1;
-    int r = 2 * x + 2;
+    int heapN = 2 * n - 1;
+    int winnerTree[heapN];
+    int startNdx = heapN - 1;
+    int x, y;
+    int P, LC, RC;
 
-    if (l < n && a[l] > a[largest]) {
-        largest = l;
+    for(x = n - 1, y = startNdx; x > -1;){
+        winnerTree[y--] = a[x--];
     }
 
-    if (r < n && a[r] > a[largest]) {
-        largest = r;
-    }
+    for(x = 0; x < n; x++){
+        for(P = (startNdx - 1) / 2; P > -1; ){
+            LC = 2 * P + 1;
+            RC = LC + 1;
 
-    if (largest != x) {
-        int temp = a[x];
-        a[x] = a[largest];
-        a[largest] = temp;
-        heapify(a, n, largest);
-    }
+            LC = (LC < heapN - n) ?  winnerTree[LC] : LC;
+            RC = (RC < heapN- n) ?  winnerTree[RC] : RC;
+
+            winnerTree[P] = (winnerTree[LC] < winnerTree[RC])? LC : RC;
+            P = (x > 0 && P > 0) ? (P - 1) / 2 : P - 1;
+        }
+
+        startNdx = winnerTree[0];
+        a[x] = winnerTree[startNdx];
+        winnerTree[startNdx] = INT_MAX;
+  }
 }
 
-void sort(int a[], int n) {
-
-    int x;
-    for (x = n / 2 - 1; x > 0; --x) {
-        heapify(a, n, x);
+void displayArray(int a[], int n) {
+    for (int x = 0; x < n; x++) {
+        printf("%d ", a[x]);
     }
-
-    for (x = n - 1; x >= 0; --x) {
-        int temp = a[0];
-        a[x] = a[0];
-        a[0] = temp;
-        heapify(a, x, 0);
-    }
+    printf("\n");
 }
