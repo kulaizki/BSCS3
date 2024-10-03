@@ -28,7 +28,7 @@ void tournamentSort(int a[], int n){
     }
 
     for(x = 0; x < n; x++){
-        for(P = (startNdx - 1) / 2; P > -1; ){
+        for(P = (startNdx - 1) / 2; P >= 0; ){
             LC = 2 * P + 1;
             RC = LC + 1;
 
