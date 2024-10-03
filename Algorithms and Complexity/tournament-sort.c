@@ -23,8 +23,8 @@ void tournamentSort(int a[], int n){
     int x, y;
     int P, LC, RC;
 
-    for(x = n - 1, y = startNdx; x > -1;){
-        tree[y--] = a[x--];
+    for(x = n - 1, y = startNdx; x >= 0; --x, --y){
+        tree[y] = a[x];
     }
 
     for(x = 0; x < n; x++){
