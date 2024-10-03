@@ -18,13 +18,13 @@ int main() {
 void tournamentSort(int a[], int n){
 
     int heapN = 2 * n - 1;
-    int winnerTree[heapN];
+    int tree[heapN];
     int startNdx = heapN - 1;
     int x, y;
     int P, LC, RC;
 
     for(x = n - 1, y = startNdx; x > -1;){
-        winnerTree[y--] = a[x--];
+        tree[y--] = a[x--];
     }
 
     for(x = 0; x < n; x++){
@@ -32,16 +32,16 @@ void tournamentSort(int a[], int n){
             LC = 2 * P + 1;
             RC = LC + 1;
 
-            LC = (LC < heapN - n) ?  winnerTree[LC] : LC;
-            RC = (RC < heapN- n) ?  winnerTree[RC] : RC;
+            LC = (LC < heapN - n) ?  tree[LC] : LC;
+            RC = (RC < heapN- n) ?  tree[RC] : RC;
 
-            winnerTree[P] = (winnerTree[LC] < winnerTree[RC])? LC : RC;
+            tree[P] = tree[LC] < tree[RC] ? LC : RC;
             P = (x > 0 && P > 0) ? (P - 1) / 2 : P - 1;
         }
 
-        startNdx = winnerTree[0];
-        a[x] = winnerTree[startNdx];
-        winnerTree[startNdx] = INT_MAX;
+        startNdx = tree[0];
+        a[x] = tree[startNdx];
+        tree[startNdx] = INT_MAX;
   }
 }
 
