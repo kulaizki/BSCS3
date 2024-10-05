@@ -18,30 +18,17 @@ int main() {
 
 void sort(int a[], int n) {
 
-    int heapN = 2 * n - 1;
-    int heap[heapN];
-    int startIdx = heapN - 1;
-    int x, y, P, LC, RC;
+    int x = 0;
 
-    for (x = n - 1, y = startIdx; y >= 0; --x, --y) {
-        heap[y] = a[x];
-    }
-
-    for (x = 0; x < n; ++x) {
-        for (P = (startIdx - 1) / 2; P >= 0;) {
-            LC = 2 * P + 1;
-            RC = LC + 1;
-
-            LC = (LC < heapN - n) ? heap[LC] : LC;
-            RC = (RC < heapN - n) ? heap[RC] : RC;
-
-            heap[P] = heap[LC] < heap[RC] ? LC : RC;
-            P = (x > 0 && P > 0) ? (P - 1) / 2 : P - 1;
+    while (x < n) {
+        if (x == 0 || a[x] >= a[x - 1]) {
+            ++x;
+        } else {
+            int temp = a[x];
+            a[x] = a[x - 1];
+            a[x - 1] = temp;
+            --x;
         }
-
-        startIdx = heap[0];
-        a[x] = heap[startIdx];
-        heap[startIdx] = INT_MAX;
     }
 }
 
