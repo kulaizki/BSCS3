@@ -16,11 +16,12 @@ int main() {
 void quickSort(int a[], int l, int h) {
     if (l < h) {
         int pivot = a[l];
-        int x = l - 1, y = h + 1;
+        int x = l - 1;
+        int y = h + 1;
 
         while (1) {
-            for (x++; a[x] < pivot; x++) {}
-            for (y++; a[y] > pivot; y--) {}
+            do { ++x; } while (a[x] < pivot);
+            do { --y; } while (a[y] > pivot);
 
             if (x >= y) break;
 
@@ -29,8 +30,8 @@ void quickSort(int a[], int l, int h) {
             a[y] = temp;
         }
 
-        quickSort(a, l, y);     // Sort left partition
-        quickSort(a, y + 1, h); // Sort right partition
+        quickSort(a, l, y);
+        quickSort(a, y + 1, h);
     }
 }
 

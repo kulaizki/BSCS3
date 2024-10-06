@@ -17,8 +17,8 @@ void quickSort(int a[], int l, int h) {
         int y = h + 1;
 
         while (1) {
-            do { x++; } while (a[x] < pivot);
-            do { y--; } while (a[y] > pivot);
+            do { ++x; } while (a[x] < pivot);
+            do { --y; } while (a[y] > pivot);
 
             if (x >= y) break;
 
