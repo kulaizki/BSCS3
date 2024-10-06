@@ -35,7 +35,7 @@ int* countingSort(int a[], int n) {
     }
 
     // sorted array
-    int *res = (int *)malloc(sizeof(int) * n);
+    int *res = (int *)malloc(n * sizeof(int));
     for (int i = n - 1; i >= 0; --i){
         res[freq[a[i]] - 1] = a[i];
         freq[a[i]]--;
