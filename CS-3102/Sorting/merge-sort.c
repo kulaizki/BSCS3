@@ -15,16 +15,14 @@ void merge(int a[], int l, int m, int r) {
     int n1 = m - l + 1;
     int n2 = r - m;
 
-    // Create temp arrays
-    int L[n1], R[n2];
+    int *L = (int *)malloc(n1 * sizeof(int));
+    int *R = (int *)malloc(n2 * sizeof(int));
 
     // Copy data to temp arrays
-    for (int x = 0; x < n1; x++) {
+    for (int x = 0; x < n1; x++)
         L[x] = a[l + x];
-    }
-    for (int y = 0; y < n2; y++) {
+    for (int y = 0; y < n2; y++)
         R[y] = a[m + 1 + y];
-    }
 
     // Merge the temp arrays back into a[]
     int x = 0, y = 0, z;
@@ -47,6 +45,9 @@ void merge(int a[], int l, int m, int r) {
     for (; y < n2; y++, z++) {
         a[z] = R[y];
     }
+
+    free(L);
+    free(R);
 }
 
 void mergeSort(int a[], int l, int r) {
