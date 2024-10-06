@@ -15,13 +15,13 @@ int main() {
 
 void quickSort(int a[], int l, int h) {
     if (l < h) {
-        int pivot = a[l];
+        int p = a[l];
         int x = l - 1;
         int y = h + 1;
 
-        while (1) {
-            do { ++x; } while (a[x] < pivot);
-            do { --y; } while (a[y] > pivot);
+        for (;;) {
+            do { ++x; } while (a[x] < p);
+            do { --y; } while (a[y] > p);
 
             if (x >= y) break;
 
@@ -34,4 +34,3 @@ void quickSort(int a[], int l, int h) {
         quickSort(a, y + 1, h);
     }
 }
-

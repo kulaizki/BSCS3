@@ -13,8 +13,8 @@ int main() {
 void quickSort(int a[], int l, int h) {
     if (l < h) {
         int pivot = a[h];  
-        int x, y;
-        for (x = l - 1, y = l; y < h; y++) {
+        int x = l - 1;
+        for (int y = l; y < h; y++) {
             if (a[y] <= pivot) {
                 x++;
                 int temp = a[x];
@@ -27,8 +27,7 @@ void quickSort(int a[], int l, int h) {
         a[x + 1] = a[h];
         a[h] = temp;
 
-        int pi = x + 1;
-        quickSort(a, l, pi - 1);
-        quickSort(a, pi + 1, h);
+        quickSort(a, l, x);
+        quickSort(a, x + 2, h);
     }
 }
