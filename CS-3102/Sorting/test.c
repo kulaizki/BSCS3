@@ -1,40 +1,36 @@
-#include <stdio.h>
-#include <limits.h>  
-
-#define SIZE 8
+#include "util.c"
 
 void heapify(int a[], int n, int x);
+void quickSort(int a[], int l, int h);
 void sort(int a[], int n);
 void displayArray(int a[], int n);
 
 int main() {
+
     int a[SIZE] = {4, 1, 2, 3, 9, 9, 0, 3};
     
-    sort(a, SIZE);
+    quickSort(a, 0, SIZE - 1);
     displayArray(a, SIZE);
-    
-    return 0;
 }
 
-void sort(int a[], int n) {
+void quickSort(int a[], int l, int h) {
+    if (l < h) {
+        int pivot = a[l];
+        int x = l - 1, y = h + 1;
 
-    int x = 0;
+        while (1) {
+            for (x++; a[x] < pivot; x++) {}
+            for (y++; a[y] > pivot; y--) {}
 
-    while (x < n) {
-        if (x == 0 || a[x] >= a[x - 1]) {
-            ++x;
-        } else {
+            if (x >= y) break;
+
             int temp = a[x];
-            a[x] = a[x - 1];
-            a[x - 1] = temp;
-            --x;
+            a[x] = a[y];
+            a[y] = temp;
         }
+
+        quickSort(a, l, y);     // Sort left partition
+        quickSort(a, y + 1, h); // Sort right partition
     }
 }
 
-void displayArray(int a[], int n) {
-    for (int x = 0; x < n; x++) {
-        printf("%d ", a[x]);
-    }
-    printf("\n");
-}
