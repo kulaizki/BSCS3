@@ -1,6 +1,5 @@
 #include "util.c"
 
-int getMax(int a[], int n);
 void countingSort(int a[], int n, int exp);
 void radixSort(int a[], int n);
 
