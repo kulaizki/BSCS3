@@ -17,7 +17,7 @@ void countingSort(int a[], int n, int exp) {
 
     // count of occurrences of each digit
     for (int x = 0; x < n; x++) {
-        freq[(a[x] / exp) % 10]++;
+        freq[a[x] / exp % 10]++;
     }
 
     // change count so that it contains the actual position of the digit in res[]
@@ -27,7 +27,7 @@ void countingSort(int a[], int n, int exp) {
 
     // build the sorted array
     for (int x = n - 1; x >= 0; x--) {
-        res[freq[(a[x] / exp) % 10] - 1] = a[x];
+        res[freq[a[x] / exp % 10] - 1] = a[x];
         freq[(a[x] / exp) % 10]--;
     }
 
