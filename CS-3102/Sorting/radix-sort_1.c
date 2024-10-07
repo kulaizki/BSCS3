@@ -12,16 +12,6 @@ int main() {
     displayArray(a, SIZE);
 }
 
-int getMax(int a[], int n) {
-    int mx = a[0];
-    for (int x = 1; x < n; x++) {
-        if (a[x] > mx) {
-            mx = a[x];
-        }
-    }
-    return mx;
-}
-
 void countingSort(int a[], int n, int exp) {
     int res[n]; // sorted
     int freq[10] = {0}; // digit count 
@@ -50,10 +40,13 @@ void countingSort(int a[], int n, int exp) {
 
 void radixSort(int a[], int n) {
     // Find the maximum number to know the number of digits
-    int max = getMax(a, n);
+    int mx = a[0];
+    for (int x = 0; x < n; ++x) {
+        if (a[x] > mx) mx = a[x];
+    }
 
     // Perform counting sort for each digit, starting with the least significant digit
-    for (int exp = 1; max / exp > 0; exp *= 10) {
+    for (int exp = 1; mx / exp > 0; exp *= 10) {
         countingSort(a, n, exp);
     }
 }
