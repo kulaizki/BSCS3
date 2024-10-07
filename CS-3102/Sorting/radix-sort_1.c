@@ -39,13 +39,12 @@ void countingSort(int a[], int n, int exp) {
 }
 
 void radixSort(int a[], int n) {
-    // Find the maximum number to know the number of digits
     int mx = a[0];
     for (int x = 0; x < n; ++x) {
         if (a[x] > mx) mx = a[x];
     }
 
-    // Perform counting sort for each digit, starting with the least significant digit
+    // counting sort for each digit, starting with the least significant digit
     for (int exp = 1; mx / exp > 0; exp *= 10) {
         countingSort(a, n, exp);
     }
