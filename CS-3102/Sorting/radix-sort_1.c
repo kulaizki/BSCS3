@@ -13,38 +13,38 @@ int main() {
 }
 
 int getMax(int a[], int n) {
-    int max = a[0];
+    int mx = a[0];
     for (int x = 1; x < n; x++) {
-        if (a[x] > max) {
-            max = a[x];
+        if (a[x] > mx) {
+            mx = a[x];
         }
     }
-    return max;
+    return mx;
 }
 
 void countingSort(int a[], int n, int exp) {
-    int output[n]; // Output array to store the sorted values
-    int count[10] = {0}; // Count array for the digits
+    int res[n]; // sorted
+    int freq[10] = {0}; // digit count 
 
     // Store the count of occurrences of each digit
     for (int x = 0; x < n; x++) {
-        count[(a[x] / exp) % 10]++;
+        freq[(a[x] / exp) % 10]++;
     }
 
-    // Change count so that it contains the actual position of the digit in output[]
+    // Change count so that it contains the actual position of the digit in res[]
     for (int x = 1; x < 10; x++) {
-        count[x] += count[x - 1];
+        freq[x] += freq[x - 1];
     }
 
-    // Build the output array
+    // Build the sorted array
     for (int x = n - 1; x >= 0; x--) {
-        output[count[(a[x] / exp) % 10] - 1] = a[x];
-        count[(a[x] / exp) % 10]--;
+        res[freq[(a[x] / exp) % 10] - 1] = a[x];
+        freq[(a[x] / exp) % 10]--;
     }
 
-    // Copy the output array to a[], so that a[] now contains sorted numbers
+    // Copy the sorted array to a[]
     for (int x = 0; x < n; x++) {
-        a[x] = output[x];
+        a[x] = res[x];
     }
 }
 
