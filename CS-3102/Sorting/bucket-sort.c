@@ -1,7 +1,5 @@
 #include "util.c"
 
-#define BUCKETS 10
-
 typedef struct Node {
     int data;
     struct Node *link;
@@ -18,21 +16,14 @@ int main() {
     displayArray(a, SIZE);
 }
 
-void insert(LIST *list, int value) {
+void insert(LIST *L, int value) {
+    LIST *trav;
+    for (trav = L; *trav != NULL && (*trav)->data < value; trav = &(*trav)->link) {}
     LIST newNode = (LIST)malloc(sizeof(struct Node));
-    newNode->data = value;
-    newNode->link = NULL;
-
-    if (*list == NULL || (*list)->data >= value) {
-        newNode->link = *list;
-        *list = newNode;
-    } else {
-        LIST current = *list;
-        while (current->link != NULL && current->link->data < value) {
-            current = current->link;
-        }
-        newNode->link = current->link;
-        current->link = newNode;
+    if (newNode != NULL) {
+        newNode->data = value;
+        newNode->link = *trav;  
+        *trav = newNode;        
     }
 }
 
@@ -48,11 +39,11 @@ void bucketSort(int a[], int n) {
     // Concatenate all buckets back into array
     int idx = 0;
     for (int x = 0; x < BUCKETS; x++) {
-        LIST current = buckets[x];
-        while (current != NULL) {
-            a[idx++] = current->data;
-            LIST temp = current;
-            current = current->link;
+        LIST curr = buckets[x];
+        while (curr != NULL) {
+            a[idx++] = curr->data;
+            LIST temp = curr;
+            curr = curr->link;
             free(temp);
         }
     }
