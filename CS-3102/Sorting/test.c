@@ -15,29 +15,27 @@ int main() {
     displayArray(a, SIZE);
 }
 
-void insert(LIST *L, int value) {
+void insert(LIST *L, int val) {
     LIST *trav;
-    for (trav = L; *trav != NULL && (*trav)->data < value; trav = &(*trav)->link) {}
-    LIST newNode = (LIST)malloc(sizeof(struct Node));
+    for (trav = L; *trav != NULL && (*trav)->data < val; trav = &(*trav)->link) {}
+    LIST newNode = (LIST)malloc(sizeof(int));
     if (newNode != NULL) {
-        newNode->data = value;
-        newNode->link = *trav;  
-        *trav = newNode;        
+        newNode->data = val;
+        newNode->link = *trav;
+        *trav = newNode;
     }
 }
 
 void bucketSort(int a[], int n) {
     LIST buckets[BUCKETS] = {NULL};
 
-    // Distribute the elements into buckets
-    for (int x = 0; x < n; x++) {
-        int index = a[x] / BUCKETS; // Assuming all elements are in range 0-99
+    for (int x = 0; x < n; ++x) {
+        int index = a[x] / BUCKETS;
         insert(&buckets[index], a[x]);
     }
 
-    // Concatenate all buckets back into array
     int idx = 0;
-    for (int x = 0; x < BUCKETS; x++) {
+    for (int x = 0; x < BUCKETS; ++x) {
         LIST curr = buckets[x];
         while (curr != NULL) {
             a[idx++] = curr->data;
