@@ -109,7 +109,7 @@ void inorderTraversal(Node root) {
 
 int main() {
     Node root = NULL;
-    int a[] = {10, 20, 30, 15, 25, 5};
+    int a[] = {8, 18, 5, 15, 17, 25, 40, 80};
     int n = sizeof(a) / sizeof(a[0]);
 
     for (int i = 0; i < n; i++) {
