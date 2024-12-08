@@ -1,0 +1,10 @@
+- operations mostly use next node's key (look ahead)
+- levels are assigned randomly to balance performance
+- update array tracks predecessors at each level during operations
+- forward pointers in each node enable fast traversal
+- head node spans all levels for efficient access
+- insertion adjusts forward pointers to maintain order
+- deletion removes forward pointers and bypasses the target node
+- search efficiency is 𝑂(logn) due to skipping levels
+- random height ensures probabilistic balancing similar to binary trees
+- ideal for dynamic ordered data with frequent updates
