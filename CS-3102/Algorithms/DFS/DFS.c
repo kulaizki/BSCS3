@@ -13,10 +13,6 @@ typedef struct Node {
 Node* adjList[MAX_VERTICES];  // Adjacency list for the graph
 bool visited[MAX_VERTICES];    // Array to keep track of visited nodes
 
-// Stack to simulate the iterative DFS
-int stack[MAX_VERTICES];
-int top = -1;
-
 // Function to create a new adjacency list node
 Node* createNode(int data) {
     Node* newNode = (Node*)malloc(sizeof(Node));
@@ -32,35 +28,18 @@ void addEdge(int src, int dest) {
     adjList[src] = newNode;
 }
 
-// Function to push element to stack
-void push(int vertex) {
-    stack[++top] = vertex;
-}
+// Recursive DFS function
+void dfsRecursive(int vertex) {
+    visited[vertex] = true;
+    printf("%d ", vertex);
 
-// Function to pop element from stack
-int pop() {
-    return stack[top--];
-}
-
-// Iterative DFS function using a stack
-void dfsIterative(int start) {
-    push(start);
-    visited[start] = true;
-
-    while (top != -1) {
-        int vertex = pop();
-        printf("%d ", vertex);
-
-        // Visit all adjacent vertices
-        Node* temp = adjList[vertex];
-        while (temp != NULL) {
-            int adjVertex = temp->data;
-            if (!visited[adjVertex]) {
-                push(adjVertex);
-                visited[adjVertex] = true;
-            }
-            temp = temp->next;
+    Node* temp = adjList[vertex];
+    while (temp != NULL) {
+        int adjVertex = temp->data;
+        if (!visited[adjVertex]) {
+            dfsRecursive(adjVertex);
         }
+        temp = temp->next;
     }
 }
 
@@ -79,8 +58,8 @@ int main() {
     addEdge(2, 4);
     addEdge(3, 5);
 
-    printf("DFS Traversal (Iterative):\n");
-    dfsIterative(0);  // Start DFS traversal from vertex 0
+    printf("DFS Traversal (Recursive):\n");
+    dfsRecursive(0);  // Start DFS traversal from vertex 0
     printf("\n");
 
     return 0;
